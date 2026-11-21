@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI YouTube Transcript Summarizer</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 40px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 180px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f0f7ff;
+            border-radius: 8px;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>AI YouTube Transcript Summarizer</h1>
+
+    <p>Convert long YouTube videos into short notes.</p>
+
+    <form method="POST">
+
+        <h2>Enter YouTube Video URL</h2>
+
+        <input
+            type="text"
+            name="youtube_url"
+            placeholder="Paste YouTube URL here"
+            value="{{ youtube_url or '' }}"
+        >
+
+        <h2>OR Paste Transcript</h2>
+
+        <textarea
+            name="transcript"
+            placeholder="Paste your transcript here..."
+        >{{ transcript or '' }}</textarea>
+
+        <button type="submit">
+            Generate Summary
+        </button>
+
+    </form>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if summary %}
+
+        <div class="result">
+
+            <h2>Summary</h2>
+            <p>{{ summary }}</p>
+
+            <h2>Key Takeaways</h2>
+
+            <ul>
+                {% for point in key_takeaways %}
+                    <li>{{ point }}</li>
+                {% endfor %}
+            </ul>
+
+            <h2>5-Minute Revision</h2>
+            <p>{{ revision }}</p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>
